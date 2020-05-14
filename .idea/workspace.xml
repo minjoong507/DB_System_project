@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d71a53d2-2cac-4988-afa8-7516ee0495b5" name="Default Changelist" comment="" />
+    <list default="true" id="d71a53d2-2cac-4988-afa8-7516ee0495b5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_19.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_19.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,7 +32,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1aWL0vFqFZUJl8efDVIVwKtWi6Z" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -37,16 +47,24 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-8.0.20/mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.Helloworld">
+  <component name="RunManager" selected="Application.LoadData">
     <configuration name="Helloworld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Helloworld" />
+      <module name="DBsystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoadData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LoadData" />
       <module name="DBsystem" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -61,6 +79,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LoadData" />
         <item itemvalue="Application.Helloworld" />
         <item itemvalue="Application.Main" />
       </list>
@@ -78,7 +97,10 @@
       <updated>1586846183727</updated>
       <workItem from="1586846186908" duration="1173000" />
       <workItem from="1586875773852" duration="28000" />
-      <workItem from="1587039316961" duration="6629000" />
+      <workItem from="1587039316961" duration="7245000" />
+      <workItem from="1589386429851" duration="482000" />
+      <workItem from="1589428401877" duration="1986000" />
+      <workItem from="1589451104797" duration="2051000" />
     </task>
     <servers />
   </component>
@@ -86,6 +108,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="361" y="71" key="#SQL_Dialects" timestamp="1589429610845">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#SQL_Dialects/0.0.1536.824@0.0.1536.824" timestamp="1589429610845" />
     <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586849691606">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -94,29 +120,29 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="127" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1586846291762" />
-    <state x="464" y="153" key="FileChooserDialogImpl" timestamp="1587041030654">
+    <state x="464" y="153" key="FileChooserDialogImpl" timestamp="1589452494194">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="464" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587041030654" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1587045998492">
+    <state x="464" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589452494194" />
+    <state width="1493" height="212" key="GridCell.Tab.0.bottom" timestamp="1589453080506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587045998492" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1587045998492">
+    <state width="1493" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589453080506" />
+    <state width="1493" height="212" key="GridCell.Tab.0.center" timestamp="1589453080506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587045998492" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1587045998492">
+    <state width="1493" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589453080506" />
+    <state width="1493" height="212" key="GridCell.Tab.0.left" timestamp="1589453080506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587045998492" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1587045998492">
+    <state width="1493" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589453080506" />
+    <state width="1493" height="212" key="GridCell.Tab.0.right" timestamp="1589453080506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587045998492" />
-    <state x="275" y="0" key="SettingsEditor" timestamp="1587041045531">
+    <state width="1493" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589453080506" />
+    <state x="206" y="0" key="SettingsEditor" timestamp="1589452496866">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="275" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1587041045531" />
+    <state x="206" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1589452496866" />
   </component>
 </project>

@@ -4,7 +4,7 @@ import java.io.*;
 
 public class LoadData {
     static Scanner sc = new Scanner(System.in);
-    static String path = "src/data1.csv";
+    static String path = "src/book_data.csv";
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         PreparedStatement pstmt = null;

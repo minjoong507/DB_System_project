@@ -8,17 +8,37 @@ public class MakeData {
     static Random rand = new Random();
 
     public static void main(String[] args) throws IOException {
-        MakeBookData();
+        MakeRentbookdata();
         MakeStudentData();
-        MakeDepartmentData();
+        MakeBookData();
     }
-    public static void MakeDepartmentData() throws IOException {
-        String createfile="src/department_data.csv";
+    public static void MakeRentbookdata() throws IOException{
+        String createfile="src/rentbook_data.csv";
         FileWriter fw = new FileWriter(createfile);
-        for(int i = 0; i<dept_n.length; i++){
-            fw.append(dept_n[i]);
-            fw.append(",");
-            fw.append(String.valueOf(i + 100));
+        for(int i = 0; i<10000; i++){
+            for(int j = 0; j<5; j++){
+                if (j == 0) {
+                    int idx = rand.nextInt(15000);
+                    fw.append("CAU").append(String.valueOf(idx));
+                }
+                else if (j == 1) {
+                    int idx = rand.nextInt(13000);
+                    fw.append("S").append(String.valueOf(idx));
+                }
+                else if (j == 2){
+                    int year = rand.nextInt(5) + 2015;
+                    fw.append(String.valueOf(year));
+                }
+                else if (j==3){
+                    int month = rand.nextInt(11) + 1;
+                    fw.append(String.valueOf(month));
+                }
+                else {
+                    int day = rand.nextInt(25) + 1;
+                    fw.append(String.valueOf(day));
+                }
+                fw.append(",");
+            }
             fw.append("\n");
         }
 
@@ -28,7 +48,7 @@ public class MakeData {
     public static void MakeStudentData() throws IOException {
         String createfile="src/student_data.csv";
         FileWriter fw = new FileWriter(createfile);
-        for(int i = 0; i<10000; i++){
+        for(int i = 0; i<13000; i++){
             for(int j = 0; j<4; j++){
                 if (j == 0)
                     fw.append("S").append(String.valueOf(i));

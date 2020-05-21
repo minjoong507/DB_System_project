@@ -8,10 +8,28 @@ public class MakeData {
     static Random rand = new Random();
 
     public static void main(String[] args) throws IOException {
-        MakeRentbookdata();
+        MakeDepartment();
         MakeStudentData();
         MakeBookData();
+        MakeRentbookdata();
     }
+
+    public static void MakeDepartment() throws IOException{
+        String createfile = "src/department_data.csv";
+        FileWriter fw = new FileWriter(createfile);
+        int building = 100;
+        for(String dept_name : dept_n){
+            fw.append(dept_name).append(",");
+            fw.append(String.valueOf(building)).append("\n");
+            building++;
+
+        }
+        fw.flush();
+        fw.close();
+
+    }
+
+
     public static void MakeRentbookdata() throws IOException{
         String createfile="src/rentbook_data.csv";
         FileWriter fw = new FileWriter(createfile);
@@ -41,7 +59,8 @@ public class MakeData {
             }
             fw.append("\n");
         }
-
+        fw.flush();
+        fw.close();
     }
 
 
@@ -71,6 +90,8 @@ public class MakeData {
             }
             fw.append("\n");
         }
+        fw.flush();
+        fw.close();
     }
 
 
@@ -99,5 +120,7 @@ public class MakeData {
             }
             fw.append("\n");
         }
+        fw.flush();
+        fw.close();
     }
 }

@@ -3,7 +3,7 @@ import java.util.*;
 
 public class MakeData {
     static String[] namebox = {"Bob", "Max", "Harry", "Adam", "Tom", "Min"};
-    static String[] dept_n = {"Physics", "Comp.sci", "Biology", "English.literature", "Economics"};
+    static String[] dept_n = {"Physics", "Comp.sci", "Biology", "English", "Economics"};
     static String[] publisher = {"Fox", "Wolf", "Dog", "CAT"};
     static Random rand = new Random();
 

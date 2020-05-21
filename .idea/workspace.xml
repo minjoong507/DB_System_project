@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d71a53d2-2cac-4988-afa8-7516ee0495b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DBsystem/LoadData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DBsystem/LoadData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DBsystem/data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoadData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MakeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MakeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/department_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/department_data.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,12 +50,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mysql-connector-java-8.0.20/mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.LoadData">
+  <component name="RunManager" selected="Application.MakeData">
     <configuration name="Helloworld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Helloworld" />
       <module name="DBsystem" />
@@ -89,8 +86,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LoadData" />
         <item itemvalue="Application.MakeData" />
+        <item itemvalue="Application.LoadData" />
         <item itemvalue="Application.Helloworld" />
         <item itemvalue="Application.Main" />
       </list>
@@ -113,7 +110,9 @@
       <workItem from="1589428401877" duration="1986000" />
       <workItem from="1589451104797" duration="8173000" />
       <workItem from="1589471410858" duration="600000" />
-      <workItem from="1589523017755" duration="3849000" />
+      <workItem from="1589523017755" duration="4430000" />
+      <workItem from="1589730383603" duration="35000" />
+      <workItem from="1590037302757" duration="1344000" />
     </task>
     <servers />
   </component>
@@ -133,26 +132,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="127" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1586846291762" />
-    <state x="464" y="153" key="FileChooserDialogImpl" timestamp="1589452494194">
+    <state x="464" y="153" key="FileChooserDialogImpl" timestamp="1589730418139">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="464" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589452494194" />
-    <state width="1493" height="172" key="GridCell.Tab.0.bottom" timestamp="1589530506395">
+    <state x="464" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1589730418139" />
+    <state width="1493" height="172" key="GridCell.Tab.0.bottom" timestamp="1590038139437">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1589530506395" />
-    <state width="1493" height="172" key="GridCell.Tab.0.center" timestamp="1589530506395">
+    <state width="1493" height="172" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590038139437" />
+    <state width="1493" height="172" key="GridCell.Tab.0.center" timestamp="1590038139437">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1589530506395" />
-    <state width="1493" height="172" key="GridCell.Tab.0.left" timestamp="1589530506395">
+    <state width="1493" height="172" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590038139437" />
+    <state width="1493" height="172" key="GridCell.Tab.0.left" timestamp="1590038139437">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1589530506395" />
-    <state width="1493" height="172" key="GridCell.Tab.0.right" timestamp="1589530506395">
+    <state width="1493" height="172" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590038139437" />
+    <state width="1493" height="172" key="GridCell.Tab.0.right" timestamp="1590038139437">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="172" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1589530506395" />
+    <state width="1493" height="172" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590038139437" />
     <state x="206" y="0" key="SettingsEditor" timestamp="1589452496866">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

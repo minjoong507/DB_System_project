@@ -1,49 +1,49 @@
 import java.sql.*;
-import java.util.Scanner;
 import java.io.*;
 
 public class LoadData {
-    static Scanner sc = new Scanner(System.in);
-    static String path = "src/book_data.csv";
+    public static void main(String[] args) {
+        String bookSQL = "INSERT INTO book (book_id, book_name, author, publisher, publication_year) VALUES (?, ?, ?, ?,?)";
+        String studentSQL = "INSERT INTO student (id, name, dept_name, age) VALUES (?, ?, ?, ?)";
+        String rentbookSQL = "INSERT INTO rentbook (book_id, student_id, date_year, date_month, date_day) VALUES (?, ?, ?, ?, ?)";
+        String departmentSQL = "INSERT INTO department (dept_name, building) VALUES (?, ?)";
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        PreparedStatement pstmt = null;
-        int batchSize = 20;
+        String[] SQL_list = {bookSQL, departmentSQL, studentSQL, rentbookSQL};
+        String[] path_list = {"src/book_data.csv", "src/department_data.csv", "src/student_data.csv", "src/rentbook_data.csv"};
+        for (int i = 0; i<4; i++)
+            InsertData(SQL_list[i], path_list[i]);
 
+        System.out.println("Finish!");
+    }
+
+    public static void InsertData(String InsertSQL, String path){
+        int batchsize = 100;
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root","9848");
-            String InsertSQL = "INSERT INTO book (book_id, book_name, author, publisher, publication_year) VALUES (?, ?, ?, ?,?)";
+            String SQL = InsertSQL;
 
-            pstmt = conn.prepareStatement(InsertSQL);
-            BufferedReader lineReader = new BufferedReader(new FileReader(path));
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String lineText = null;
-            int count = 0;
+            int cnt = 0;
 
-
-            while ((lineText = lineReader.readLine()) != null) {
+            while((lineText = br.readLine()) != null){
                 String[] data = lineText.split(",");
-                String book_id = data[0];
-                String book_name = data[1];
-                String author = data[2];
-                String publisher = data[3];
-                int pulication_year = Integer.parseInt(data[4]);
 
-                pstmt.setString(1, book_id);
-                pstmt.setString(2, book_name);
-                pstmt.setString(3, author);
-                pstmt.setString(4, publisher);
-                pstmt.setInt(5, pulication_year);
-
+                for(int i = 0; i<data.length; i++){
+                    pstmt.setString(i+1, data[i]);
+                }
                 pstmt.addBatch();
 
-                if (count % batchSize == 0) {
+                if(cnt % batchsize == 0){
                     pstmt.executeBatch();
                 }
-                count ++;
+                cnt++;
             }
 
-            lineReader.close();
             pstmt.executeBatch();
+            br.close();
+
             conn.close();
 
         } catch (IOException ex) {

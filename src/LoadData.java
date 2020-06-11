@@ -16,10 +16,128 @@ public class LoadData {
         System.out.println("Finish!");
     }
 
+    public static void Serach_transaction(String InsertSQL, String path){
+        int batchsize = 100;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root","9848");
+            conn.setAutoCommit(false);
+            String SQL = InsertSQL;
+
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            String lineText = null;
+            int cnt = 0;
+
+            while((lineText = br.readLine()) != null){
+                String[] data = lineText.split(",");
+
+                for(int i = 0; i<data.length; i++){
+                    pstmt.setString(i+1, data[i]);
+                }
+                pstmt.addBatch();
+
+                if(cnt % batchsize == 0){
+                    pstmt.executeBatch();
+                }
+                cnt++;
+            }
+
+            pstmt.executeBatch();
+            br.close();
+
+            conn.close();
+
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void Search_and_Modify_transaction(String InsertSQL, String path){
+        int batchsize = 100;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root","9848");
+            conn.setAutoCommit(false);
+            String SQL = InsertSQL;
+
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            String lineText = null;
+            int cnt = 0;
+
+            while((lineText = br.readLine()) != null){
+                String[] data = lineText.split(",");
+
+                for(int i = 0; i<data.length; i++){
+                    pstmt.setString(i+1, data[i]);
+                }
+                pstmt.addBatch();
+
+                if(cnt % batchsize == 0){
+                    pstmt.executeBatch();
+                }
+                cnt++;
+            }
+
+            pstmt.executeBatch();
+            br.close();
+
+            conn.close();
+
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    public static void Modify_transaction(String InsertSQL, String path){
+        int batchsize = 100;
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root","9848");
+            conn.setAutoCommit(false);
+            String SQL = InsertSQL;
+
+            PreparedStatement pstmt = conn.prepareStatement(SQL);
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            String lineText = null;
+            int cnt = 0;
+
+            while((lineText = br.readLine()) != null){
+                String[] data = lineText.split(",");
+
+                for(int i = 0; i<data.length; i++){
+                    pstmt.setString(i+1, data[i]);
+                }
+                pstmt.addBatch();
+
+                if(cnt % batchsize == 0){
+                    pstmt.executeBatch();
+                }
+                cnt++;
+            }
+
+            pstmt.executeBatch();
+            br.close();
+
+            conn.close();
+
+        } catch (IOException ex) {
+            System.err.println(ex);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
     public static void InsertData(String InsertSQL, String path){
         int batchsize = 100;
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root","9848");
+
             String SQL = InsertSQL;
 
             PreparedStatement pstmt = conn.prepareStatement(SQL);

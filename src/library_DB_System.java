@@ -20,7 +20,6 @@ public class library_DB_System {
     static ResultSet rs = null;
 
     public static void main(String[] args) throws SQLException {
-        conn.setAutoCommit(false);
         search_DB();
     }
 
@@ -28,6 +27,7 @@ public class library_DB_System {
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root", "9848");
+            conn.setAutoCommit(false);
 
             user_command = InitialPage();
             if (user_command > 5 || user_command < 1){
@@ -62,38 +62,44 @@ public class library_DB_System {
         if (table_idx == 0){
             book_table();
             stmt = (Statement) conn.createStatement();
-
+            Savepoint savepoint = conn.setSavepoint();
             switch (command_idx){
                 // select
                 case 0:
-                    rs = stmt.executeQuery("select * from book");
-                    ArrayList<String> book_id = new ArrayList<>();
-                    ArrayList<String> book_name = new ArrayList<>();
-                    ArrayList<String> author = new ArrayList<>();
-                    ArrayList<String> publisher = new ArrayList<>();
-                    ArrayList<String> publication_year = new ArrayList<>();
+                    try{
+                        rs = stmt.executeQuery("select * from book");
+                        ArrayList<String> book_id = new ArrayList<>();
+                        ArrayList<String> book_name = new ArrayList<>();
+                        ArrayList<String> author = new ArrayList<>();
+                        ArrayList<String> publisher = new ArrayList<>();
+                        ArrayList<String> publication_year = new ArrayList<>();
 
-                    while (rs.next()){
-                        book_id.add(rs.getString("book_id"));
-                        book_name.add(rs.getString("book_name"));
-                        author.add(rs.getString("author"));
-                        publisher.add(rs.getString("publisher"));
-                        publication_year.add(rs.getString("publication_year"));
-                    }
+                        while (rs.next()){
+                            book_id.add(rs.getString("book_id"));
+                            book_name.add(rs.getString("book_name"));
+                            author.add(rs.getString("author"));
+                            publisher.add(rs.getString("publisher"));
+                            publication_year.add(rs.getString("publication_year"));
+                        }
 
-                    int now_page = 0;
-                    while (now_page != -1){
-                        select_booktable(now_page, book_id, book_name, author, publisher, publication_year);
-                        System.out.printf("총 페이지 수 : %d \n", book_id.size() / 100);
-                        System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
-                        System.out.print("페이지 번호 :");
-                        now_page = sc.nextInt();
-                        while (now_page >= book_id.size() / 100){
-                            System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                        int now_page = 0;
+                        while (now_page != -1){
+                            select_booktable(now_page, book_id, book_name, author, publisher, publication_year);
+                            System.out.printf("총 페이지 수 : %d \n", book_id.size() / 100);
+                            System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
                             System.out.print("페이지 번호 :");
                             now_page = sc.nextInt();
+                            while (now_page >= book_id.size() / 100){
+                                System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                                System.out.print("페이지 번호 :");
+                                now_page = sc.nextInt();
+                            }
                         }
                     }
+                    catch (SQLException e){
+                        conn.rollback(savepoint);
+                    }
+
                     break;
 
                 // Insert

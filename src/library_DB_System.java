@@ -155,6 +155,26 @@ public class library_DB_System {
 
                 //delete
                 case 3:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String bookdeleteSQL = "Delete from book where book_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(bookdeleteSQL);
+
+                        System.out.print("book_id :");
+                        String input = sc.nextLine();
+                        pstmt.setString(1, input);
+
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
+
                     break;
             }
 
@@ -260,7 +280,30 @@ public class library_DB_System {
 
                     break;
 
+                //delete
                 case 3:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String rentbookdeleteSQL = "Delete from rentbook where book_id = ? and student_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(rentbookdeleteSQL);
+
+                        for (int i = 0 ; i < 2; i++){
+                            if (i == 0 ) System.out.print("book_id :");
+                            else System.out.print("student_id :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
                     break;
             }
         }
@@ -358,11 +401,29 @@ public class library_DB_System {
                         System.out.println("SQL error :" + e);
                     }
 
-
-
                     break;
 
+                //delete
                 case 3:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String studentdeleteSQL = "Delete from student where id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(studentdeleteSQL);
+
+                        System.out.print("student_id : ");
+                        String input = sc.nextLine();
+                        pstmt.setString(1, input);
+
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
                     break;
             }
         }
@@ -453,7 +514,28 @@ public class library_DB_System {
 
                     break;
 
+                //delete
                 case 3:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String departmentdeleteSQL = "Delete from department where dept_name = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(departmentdeleteSQL);
+
+                        System.out.print("dept_name : ");
+                        String input = sc.nextLine();
+                        pstmt.setString(1, input);
+
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
+
                     break;
             }
         }

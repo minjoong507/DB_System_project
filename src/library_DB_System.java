@@ -127,6 +127,30 @@ public class library_DB_System {
 
                 // update
                 case 2:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String bookupdateSQL = "Update book set book_name = ?, author = ?, publisher = ?, publication_year = ? where book_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(bookupdateSQL);
+                        for(int i = 0; i<5; i++){
+                            if (i == 0) System.out.print("book_name :");
+                            else if (i == 1) System.out.print("author :");
+                            else if (i == 2) System.out.print("publisher :");
+                            else if (i == 3) System.out.print("publication year :");
+                            else System.out.print("book_id :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
                     break;
 
                 //delete
@@ -207,7 +231,33 @@ public class library_DB_System {
 
                     break;
 
+                //update
                 case 2:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String rentbookupdateSQL = "Update rentbook set date_year = ?, date_month = ?, date_day = ? where book_id = ? and student_id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(rentbookupdateSQL);
+                        for(int i = 0; i<5; i++){
+                            if (i == 0) System.out.print("year :");
+                            else if (i == 1) System.out.print("month :");
+                            else if (i == 2) System.out.print("day :");
+                            else if (i == 3) System.out.print("book_id :");
+                            else System.out.print("student_id :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
+
                     break;
 
                 case 3:
@@ -283,7 +333,33 @@ public class library_DB_System {
                     }
                     break;
 
+                //update
                 case 2:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String studentupdateSQL = "Update student set name = ?, dept_name = ?, age = ? where id = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(studentupdateSQL);
+                        for(int i = 0; i<4; i++){
+                            if (i == 0) System.out.print("student name :");
+                            else if (i == 1) System.out.print("dept_name :");
+                            else if (i == 2) System.out.print("age :");
+                            else System.out.print("student_id :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
+
+
                     break;
 
                 case 3:
@@ -351,8 +427,30 @@ public class library_DB_System {
                     }
 
                     break;
-
+                //update
                 case 2:
+                    try{
+                        String nul_val = sc.nextLine();
+
+                        String departmentupdateSQL = "Update department set building = ? where dept_name = ?";
+                        PreparedStatement pstmt = conn.prepareStatement(departmentupdateSQL);
+                        for(int i = 0; i<2; i++){
+                            if (i == 0) System.out.print("building :");
+                            else System.out.print("dept_name :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+
+                        int result = pstmt.executeUpdate();
+                        if (result == 1) System.out.println("입력사항으로 갱신하였습니다.");
+                        else System.out.println("갱신이 실패했습니다.");
+                    }
+                    catch (SQLException e){
+                        System.out.println("SQL error :" + e);
+                    }
+
+
                     break;
 
                 case 3:

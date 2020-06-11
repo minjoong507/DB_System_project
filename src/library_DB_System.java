@@ -60,10 +60,9 @@ public class library_DB_System {
         // book table
         if (table_idx == 0){
             book_table();
-
             stmt = (Statement) conn.createStatement();
-            switch (command_idx){
 
+            switch (command_idx){
                 // select
                 case 0:
                     rs = stmt.executeQuery("select * from book");
@@ -98,6 +97,32 @@ public class library_DB_System {
 
                 // Insert
                 case 1:
+                    try{
+                        String bookSQL = "INSERT INTO book (book_id, book_name, author, publisher, publication_year) VALUES (?, ?, ?, ?,?)";
+                        PreparedStatement pstmt = conn.prepareStatement(bookSQL);
+                        String nul_val = sc.nextLine();
+
+                        for(int i = 0; i<5; i++){
+                            if (i == 0) System.out.print("book_id :");
+                            else if (i == 1) System.out.print("book_name :");
+                            else if (i == 2) System.out.print("author :");
+                            else if (i == 3) System.out.print("publisher :");
+                            else System.out.print("publication year :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+                        int result = pstmt.executeUpdate();
+
+                        if (result == 1) System.out.println("성공적으로 삽입 되었습니다.");
+                        else System.out.println("입력이 실패했습니다.");
+                    }
+
+                    // PK 관련 제약사항 위배시
+                    catch (SQLIntegrityConstraintViolationException e){
+                        System.out.println("PK 입력값을 다시 확인해주세요");
+                    }
+
                     break;
 
                 // update
@@ -151,7 +176,35 @@ public class library_DB_System {
 
                     break;
 
+                //insert
                 case 1:
+                    try{
+                        String rentbookSQL = "INSERT INTO rentbook (book_id, student_id, date_year, date_month, date_day) VALUES (?, ?, ?, ?, ?)";
+                        PreparedStatement pstmt = conn.prepareStatement(rentbookSQL);
+
+                        String nul_val = sc.nextLine();
+
+                        for(int i = 0; i<5; i++){
+                            if (i == 0) System.out.print("book_id :");
+                            else if (i == 1) System.out.print("student_id :");
+                            else if (i == 2) System.out.print("year :");
+                            else if (i == 3) System.out.print("month :");
+                            else System.out.print("day :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+                        int result = pstmt.executeUpdate();
+
+                        if (result == 1) System.out.println("성공적으로 삽입 되었습니다.");
+                        else System.out.println("입력이 실패했습니다.");
+                    }
+
+                    // PK 관련 제약사항 위배시
+                    catch (SQLIntegrityConstraintViolationException e){
+                        System.out.println("PK 입력값을 다시 확인해주세요");
+                    }
+
                     break;
 
                 case 2:
@@ -201,7 +254,33 @@ public class library_DB_System {
 
                     break;
 
+                //insert
                 case 1:
+                    try{
+                        String studentSQL = "INSERT INTO student (id, name, dept_name, age) VALUES (?, ?, ?, ?)";
+                        PreparedStatement pstmt = conn.prepareStatement(studentSQL);
+
+                        String nul_val = sc.nextLine();
+
+                        for(int i = 0; i<4; i++){
+                            if (i == 0) System.out.print("student_id :");
+                            else if (i == 1) System.out.print("student_name :");
+                            else if (i == 2) System.out.print("dept_name :");
+                            else System.out.print("age :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+                        int result = pstmt.executeUpdate();
+
+                        if (result == 1) System.out.println("성공적으로 삽입 되었습니다.");
+                        else System.out.println("입력이 실패했습니다.");
+                    }
+
+                    // PK 관련 제약사항 위배시
+                    catch (SQLIntegrityConstraintViolationException e){
+                        System.out.println("PK 입력값을 다시 확인해주세요");
+                    }
                     break;
 
                 case 2:
@@ -214,7 +293,7 @@ public class library_DB_System {
 
         // department
         else if (table_idx == 3){
-            visited_table();
+            department_table();
 
             stmt = (Statement) conn.createStatement();
             switch (command_idx){
@@ -247,6 +326,30 @@ public class library_DB_System {
                     break;
 
                 case 1:
+                    try{
+                        String departmentSQL = "INSERT INTO department (dept_name, building) VALUES (?, ?)";
+                        PreparedStatement pstmt = conn.prepareStatement(departmentSQL);
+
+                        String nul_val = sc.nextLine();
+
+                        for(int i = 0; i<2; i++){
+                            if (i == 0) System.out.print("dept_name :");
+                            else System.out.print("building :");
+
+                            String input = sc.nextLine();
+                            pstmt.setString(i+1, input);
+                        }
+                        int result = pstmt.executeUpdate();
+
+                        if (result == 1) System.out.println("성공적으로 삽입 되었습니다.");
+                        else System.out.println("입력이 실패했습니다.");
+                    }
+
+                    // PK 관련 제약사항 위배시
+                    catch (SQLIntegrityConstraintViolationException e){
+                        System.out.println("PK 입력값을 다시 확인해주세요");
+                    }
+
                     break;
 
                 case 2:

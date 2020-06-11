@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.io.*;
-import java.text.ParseException;
 import java.util.*;
 import java.sql.Savepoint;
 
@@ -12,14 +10,21 @@ import java.sql.Savepoint;
 
 
 public class library_DB_System {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static Scanner sc = new Scanner(System.in);
     static int user_command, user_table;
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null;
 
-    public static void main(String[] args) throws SQLException {
+    static Savepoint RentbookSelectpoint;
+    static Savepoint RentbookUpdatepoint;
+    static Savepoint BookSelectpoint;
+    static Savepoint BookUpdatepoint;
+    static Savepoint StudentUpdatepoint;
+    static Savepoint StudentSelectepoint;
+    static Savepoint DepartmentSelectpoint;
+
+    public static void main(String[] args) {
         search_DB();
     }
 
@@ -62,11 +67,12 @@ public class library_DB_System {
         if (table_idx == 0){
             book_table();
             stmt = (Statement) conn.createStatement();
-            Savepoint savepoint = conn.setSavepoint();
+            BookUpdatepoint = conn.setSavepoint();
             switch (command_idx){
                 // select
                 case 0:
                     try{
+                        BookSelectpoint = conn.setSavepoint();
                         rs = stmt.executeQuery("select * from book");
                         ArrayList<String> book_id = new ArrayList<>();
                         ArrayList<String> book_name = new ArrayList<>();
@@ -97,7 +103,7 @@ public class library_DB_System {
                         }
                     }
                     catch (SQLException e){
-                        conn.rollback(savepoint);
+                        conn.rollback(BookSelectpoint);
                     }
 
                     break;
@@ -156,6 +162,7 @@ public class library_DB_System {
                     }
                     catch (SQLException e){
                         System.out.println("SQL error :" + e);
+                        conn.rollback(BookUpdatepoint);
                     }
 
                     break;
@@ -192,11 +199,13 @@ public class library_DB_System {
             rentbook_table();
 
             stmt = (Statement) conn.createStatement();
-            Savepoint savepoint = conn.setSavepoint();
+            RentbookUpdatepoint = conn.setSavepoint();
+
             switch (command_idx){
                 // select
                 case 0:
                     try{
+                        RentbookSelectpoint = conn.setSavepoint();
                         rs = stmt.executeQuery("select * from rentbook");
                         ArrayList<String> book_id = new ArrayList<>();
                         ArrayList<String> student_id = new ArrayList<>();
@@ -227,7 +236,7 @@ public class library_DB_System {
                         }
                     }
                     catch (SQLException e){
-                        conn.rollback(savepoint);
+                        conn.rollback(RentbookSelectpoint);
                     }
 
                     break;
@@ -287,6 +296,7 @@ public class library_DB_System {
                     }
                     catch (SQLException e){
                         System.out.println("SQL error :" + e);
+                        conn.rollback(RentbookUpdatepoint);
                     }
 
 
@@ -326,36 +336,44 @@ public class library_DB_System {
             student_table();
 
             stmt = (Statement) conn.createStatement();
+            StudentUpdatepoint = conn.setSavepoint();
             switch (command_idx){
-
                 // select
                 case 0:
-                    rs = stmt.executeQuery("select * from student");
-                    ArrayList<String> student_id = new ArrayList<>();
-                    ArrayList<String> name = new ArrayList<>();
-                    ArrayList<String> dept_name = new ArrayList<>();
-                    ArrayList<String> age = new ArrayList<>();
+                    try{
+                        StudentSelectepoint = conn.setSavepoint();
+                        rs = stmt.executeQuery("select * from student");
+                        ArrayList<String> student_id = new ArrayList<>();
+                        ArrayList<String> name = new ArrayList<>();
+                        ArrayList<String> dept_name = new ArrayList<>();
+                        ArrayList<String> age = new ArrayList<>();
 
-                    while (rs.next()){
-                        student_id.add(rs.getString("id"));
-                        name.add(rs.getString("name"));
-                        dept_name.add(rs.getString("dept_name"));
-                        age.add(rs.getString("age"));
-                    }
+                        while (rs.next()){
+                            student_id.add(rs.getString("id"));
+                            name.add(rs.getString("name"));
+                            dept_name.add(rs.getString("dept_name"));
+                            age.add(rs.getString("age"));
+                        }
 
-                    int now_page = 0;
-                    while (now_page != -1){
-                        select_studenttable(now_page, student_id, name, dept_name, age);
-                        System.out.printf("총 페이지 수 : %d \n", student_id.size() / 100);
-                        System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
-                        System.out.print("페이지 번호 :");
-                        now_page = sc.nextInt();
-                        while (now_page >= student_id.size() / 100){
-                            System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                        int now_page = 0;
+                        while (now_page != -1){
+                            select_studenttable(now_page, student_id, name, dept_name, age);
+                            System.out.printf("총 페이지 수 : %d \n", student_id.size() / 100);
+                            System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
                             System.out.print("페이지 번호 :");
                             now_page = sc.nextInt();
+                            while (now_page >= student_id.size() / 100){
+                                System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                                System.out.print("페이지 번호 :");
+                                now_page = sc.nextInt();
+                            }
                         }
                     }
+                    catch(SQLException e){
+                        conn.rollback(StudentSelectepoint);
+                    }
+
+
 
                     break;
 
@@ -411,6 +429,7 @@ public class library_DB_System {
                     }
                     catch (SQLException e){
                         System.out.println("SQL error :" + e);
+                        conn.rollback(StudentUpdatepoint);
                     }
 
                     break;
@@ -445,32 +464,40 @@ public class library_DB_System {
             department_table();
 
             stmt = (Statement) conn.createStatement();
+            DepartmentSelectpoint = conn.setSavepoint();
             switch (command_idx){
 
                 // select
                 case 0:
-                    rs = stmt.executeQuery("select * from department");
-                    ArrayList<String> dept_name = new ArrayList<>();
-                    ArrayList<String> building = new ArrayList<>();
+                    try{
+                        Savepoint savepoint = conn.setSavepoint();
+                        rs = stmt.executeQuery("select * from department");
+                        ArrayList<String> dept_name = new ArrayList<>();
+                        ArrayList<String> building = new ArrayList<>();
 
-                    while (rs.next()){
-                        dept_name.add(rs.getString("dept_name"));
-                        building.add(rs.getString("building"));
-                    }
+                        while (rs.next()){
+                            dept_name.add(rs.getString("dept_name"));
+                            building.add(rs.getString("building"));
+                        }
 
-                    int now_page = 0;
-                    while (now_page != -1){
-                        select_departmenttable(now_page, dept_name, building);
-                        System.out.printf("총 페이지 수 : %d \n", dept_name.size() / 100);
-                        System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
-                        System.out.print("페이지 번호 :");
-                        now_page = sc.nextInt();
-                        while (now_page > dept_name.size() / 100){
-                            System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                        int now_page = 0;
+                        while (now_page != -1){
+                            select_departmenttable(now_page, dept_name, building);
+                            System.out.printf("총 페이지 수 : %d \n", dept_name.size() / 100);
+                            System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
                             System.out.print("페이지 번호 :");
                             now_page = sc.nextInt();
+                            while (now_page > dept_name.size() / 100){
+                                System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                                System.out.print("페이지 번호 :");
+                                now_page = sc.nextInt();
+                            }
                         }
                     }
+                    catch(SQLException e){
+                        conn.rollback(DepartmentSelectpoint);
+                    }
+
 
                     break;
 
@@ -523,7 +550,6 @@ public class library_DB_System {
                         System.out.println("SQL error :" + e);
                     }
 
-
                     break;
 
                 //delete
@@ -552,9 +578,8 @@ public class library_DB_System {
             }
         }
 
-        else{
-
-        }
+        else
+            return;
 
         // 실행이 마치면 처음 상태로 돌아갑니다.
         search_DB();

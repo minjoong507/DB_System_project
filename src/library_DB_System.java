@@ -1,6 +1,8 @@
 import java.sql.*;
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
+import java.sql.Savepoint;
 
 /*
  * 1. 기능 선택 ( 검색, 삽입, 수정, 삭제 , 프로그램 종료)
@@ -12,14 +14,13 @@ import java.util.*;
 public class library_DB_System {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static Scanner sc = new Scanner(System.in);
-    static String[] Command_list = {"Select", "Update", "Delete"};
-    static String[] Table_list = {"book", "rentbook", "student", "visited", "department"};
     static int user_command, user_table;
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        conn.setAutoCommit(false);
         search_DB();
     }
 
@@ -185,37 +186,42 @@ public class library_DB_System {
             rentbook_table();
 
             stmt = (Statement) conn.createStatement();
+            Savepoint savepoint = conn.setSavepoint();
             switch (command_idx){
-
                 // select
                 case 0:
-                    rs = stmt.executeQuery("select * from rentbook");
-                    ArrayList<String> book_id = new ArrayList<>();
-                    ArrayList<String> student_id = new ArrayList<>();
-                    ArrayList<String> date_year = new ArrayList<>();
-                    ArrayList<String> date_month = new ArrayList<>();
-                    ArrayList<String> date_day = new ArrayList<>();
+                    try{
+                        rs = stmt.executeQuery("select * from rentbook");
+                        ArrayList<String> book_id = new ArrayList<>();
+                        ArrayList<String> student_id = new ArrayList<>();
+                        ArrayList<String> date_year = new ArrayList<>();
+                        ArrayList<String> date_month = new ArrayList<>();
+                        ArrayList<String> date_day = new ArrayList<>();
 
-                    while (rs.next()){
-                        book_id.add(rs.getString("book_id"));
-                        student_id.add(rs.getString("student_id"));
-                        date_year.add(rs.getString("date_year"));
-                        date_month.add(rs.getString("date_month"));
-                        date_day.add(rs.getString("date_day"));
-                    }
+                        while (rs.next()){
+                            book_id.add(rs.getString("book_id"));
+                            student_id.add(rs.getString("student_id"));
+                            date_year.add(rs.getString("date_year"));
+                            date_month.add(rs.getString("date_month"));
+                            date_day.add(rs.getString("date_day"));
+                        }
 
-                    int now_page = 0;
-                    while (now_page != -1){
-                        select_rentbooktable(now_page, book_id, student_id, date_year, date_month, date_day);
-                        System.out.printf("총 페이지 수 : %d \n", book_id.size() / 100);
-                        System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
-                        System.out.print("페이지 번호 :");
-                        now_page = sc.nextInt();
-                        while (now_page >= book_id.size() / 100){
-                            System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                        int now_page = 0;
+                        while (now_page != -1){
+                            select_rentbooktable(now_page, book_id, student_id, date_year, date_month, date_day);
+                            System.out.printf("총 페이지 수 : %d \n", book_id.size() / 100);
+                            System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
                             System.out.print("페이지 번호 :");
                             now_page = sc.nextInt();
+                            while (now_page >= book_id.size() / 100){
+                                System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                                System.out.print("페이지 번호 :");
+                                now_page = sc.nextInt();
+                            }
                         }
+                    }
+                    catch (SQLException e){
+                        conn.rollback(savepoint);
                     }
 
                     break;
@@ -557,6 +563,8 @@ public class library_DB_System {
         System.out.println("3. Update");
         System.out.println("4. Delete");
         System.out.println("5. Exit");
+        System.out.println("--------------------------------");
+
         System.out.println("\n Command : ");
 
         return sc.nextInt();
@@ -569,6 +577,8 @@ public class library_DB_System {
         System.out.println("2. Rentbook");
         System.out.println("3. Student");
         System.out.println("4. department");
+        System.out.println("--------------------");
+
         System.out.println("\n Command : ");
 
         return sc.nextInt();
@@ -619,13 +629,6 @@ public class library_DB_System {
         System.out.println("1. dept_name (PK)");
         System.out.println("2. building");
     }
-
-
-
-
-
-
-
 
     public static void select_booktable (int pg_num, ArrayList<String> book_id, ArrayList<String> book_name, ArrayList<String> author,ArrayList<String> publisher, ArrayList<String> publication_year) {
         System.out.println("\n -- Book Table Result Set --");

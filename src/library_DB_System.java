@@ -29,12 +29,22 @@ public class library_DB_System {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root", "9848");
 
             user_command = InitialPage();
-            if (user_command > 4 || user_command < 1) user_command = InitialPage();
+            if (user_command > 5 || user_command < 1){
+                while (user_command > 5 || user_command < 1 ){
+                    System.out.println("지원하지 않는 기능입니다. 다시 입력해주세요.");
+                    user_command = InitialPage();
+                }
+            }
 
-            else if (user_command == 4) return;
+            if (user_command == 5) return;
 
             user_table = SelectTablePage();
-            if (user_table > 5 || user_table < 0) user_table = SelectTablePage();
+            if (user_table > 5 || user_table < 1){
+                while (user_table > 5 || user_table < 1 ) {
+                    System.out.println("지원하지 않는 기능입니다. 다시 입력해주세요.");
+                    user_table = SelectTablePage();
+                }
+            }
 
             Main_System(user_command, user_table);
 
@@ -87,9 +97,10 @@ public class library_DB_System {
 
                     break;
 
+                // update
                 case 1:
                     break;
-
+                // delete
                 case 2:
                     break;
 
@@ -101,7 +112,53 @@ public class library_DB_System {
 
         // rentbook table
         else if (table_idx == 1){
+            rentbook_table();
 
+            stmt = (Statement) conn.createStatement();
+            switch (command_idx){
+
+                // select
+                case 0:
+                    rs = stmt.executeQuery("select * from rentbook");
+                    ArrayList<String> book_id = new ArrayList<>();
+                    ArrayList<String> student_id = new ArrayList<>();
+                    ArrayList<String> date_year = new ArrayList<>();
+                    ArrayList<String> date_month = new ArrayList<>();
+                    ArrayList<String> date_day = new ArrayList<>();
+
+                    while (rs.next()){
+                        book_id.add(rs.getString("book_id"));
+                        student_id.add(rs.getString("student_id"));
+                        date_year.add(rs.getString("date_year"));
+                        date_month.add(rs.getString("date_month"));
+                        date_day.add(rs.getString("date_day"));
+                    }
+
+                    int now_page = 0;
+                    while (now_page != -1){
+                        select_rentbooktable(now_page, book_id, student_id, date_year, date_month, date_day);
+                        System.out.printf("총 페이지 수 : %d \n", book_id.size() / 100);
+                        System.out.println("검색결과를 마무리려면 '-1' 를 입력하세요.");
+                        System.out.print("페이지 번호 :");
+                        now_page = sc.nextInt();
+                        while (now_page >= book_id.size() / 100){
+                            System.out.println("존재하지 않는 페이지 입니다. 다시 입력해주세요");
+                            System.out.print("페이지 번호 :");
+                            now_page = sc.nextInt();
+                        }
+                    }
+
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    break;
+            }
         }
 
 
@@ -133,9 +190,10 @@ public class library_DB_System {
     public static int InitialPage () {
         System.out.println("--- Library Database System ---");
         System.out.println("1. Search");
-        System.out.println("2. Update");
-        System.out.println("3. Delete");
-        System.out.println("4. Exit");
+        System.out.println("2. Insert");
+        System.out.println("3. Update");
+        System.out.println("4. Delete");
+        System.out.println("5. Exit");
         System.out.println("\n Command : ");
 
         return sc.nextInt();
@@ -181,6 +239,16 @@ public class library_DB_System {
         System.out.println("------------------------");
         for(int i = pg_num * 100; i < (pg_num + 1) * 100; i++){
             System.out.printf("%s, %s, %s, %s, %s", book_id.get(i), book_name.get(i), author.get(i), publisher.get(i), publication_year.get(i));
+            System.out.println("");
+        }
+    }
+
+    public static void select_rentbooktable (int pg_num, ArrayList<String> book_id, ArrayList<String> student_id, ArrayList<String> date_year,ArrayList<String> date_month, ArrayList<String> date_day) {
+        System.out.println("-- Rentbook Table Result Set --");
+        System.out.printf("\n -- Now Page : %d --\n", pg_num);
+        System.out.println("------------------------");
+        for(int i = pg_num * 100; i < (pg_num + 1) * 100; i++){
+            System.out.printf("%s, %s, %s, %s, %s", book_id.get(i), student_id.get(i), date_year.get(i), date_month.get(i), date_day.get(i));
             System.out.println("");
         }
     }

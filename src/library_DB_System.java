@@ -32,7 +32,7 @@ public class library_DB_System {
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/study_db" + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC ", "root", "9848");
-            conn.setAutoCommit(false);
+//            conn.setAutoCommit(false);
 
             user_command = InitialPage();
             if (user_command > 5 || user_command < 1){
